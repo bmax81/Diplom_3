@@ -1,6 +1,7 @@
-package pageObject;
+package pageobject;
 
 import data.UserData;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -30,47 +31,25 @@ public class ForgotPasswordPage {
 
     public ForgotPasswordPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Увеличил таймаут
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    //метод для нажатия на кнопку Восстановить
+    @Step("Нажать на кнопку 'Восстановить'")
     public void clickRecoverButton() {
         wait.until(ExpectedConditions.elementToBeClickable(recoverButton));
         WebElement recoverBtn = driver.findElement(recoverButton);
         recoverBtn.click();
     }
 
-    //метод для нажатия на кнопку войти (исправленный)
+    @Step("Нажать на кнопку 'Войти'")
     public void clickLoginButton() {
-        // Ждем исчезновения модального окна, если оно есть
         wait.until(ExpectedConditions.invisibilityOfElementLocated(modalOverlay));
-
-        // Ждем кликабельности кнопки
         wait.until(ExpectedConditions.elementToBeClickable(loginButton));
-
         WebElement loginBtn = driver.findElement(loginButton);
         loginBtn.click();
     }
 
-    // Альтернативный метод с JavaScript кликом
-    public void clickLoginButtonWithJS() {
-        WebElement loginBtn = driver.findElement(loginButton);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", loginBtn);
-    }
-
-    // Метод с попыткой обычного клика, а если не получается - JS клик
-    public void clickLoginButtonSafe() {
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(loginButton));
-            WebElement loginBtn = driver.findElement(loginButton);
-            loginBtn.click();
-        } catch (Exception e) {
-            // Если обычный клик не сработал, используем JS клик
-            WebElement loginBtn = driver.findElement(loginButton);
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", loginBtn);
-        }
-    }
-
+    @Step("Ввести email: {email}")
     public void enterEmail(String email) {
         WebElement emailField = driver.findElement(emailInput);
         wait.until(ExpectedConditions.visibilityOf(emailField));
@@ -78,9 +57,20 @@ public class ForgotPasswordPage {
         emailField.sendKeys(email);
     }
 
-    //Метод для заполнения email и нажатие кнопки восстановить
+    @Step("Заполнить email и нажать кнопку 'Восстановить'")
     public void inputEmailAndClickRecover(UserData userData) {
         enterEmail(userData.getEmail());
         clickRecoverButton();
+    }
+
+    @Step("Проверить, что открыта страница восстановления пароля")
+    public boolean isForgotPasswordPageOpen() {
+        return driver.getCurrentUrl().equals(FORGOT_URL);
+    }
+
+    @Step("Ожидание загрузки страницы восстановления пароля")
+    public void waitForForgotPasswordPageLoaded() {
+        wait.until(ExpectedConditions.urlToBe(FORGOT_URL));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(emailInput));
     }
 }

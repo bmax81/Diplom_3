@@ -2,21 +2,21 @@ package tests;
 
 import browser.DriverFactory;
 import data.UserData;
-import pageObject.*;
+import pageobject.*;
 import io.restassured.RestAssured;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 
-import static API.AuthAPI.*;
+import static api.AuthAPI.*;
 import static org.apache.http.HttpStatus.SC_ACCEPTED;
 import static org.apache.http.HttpStatus.SC_OK;
 
 public class BaseTest {
     Faker faker = new Faker();
     String name = faker.name().firstName();
-    String email = name + "@test.ru";
+    String email = name + "053" + "@test.ru";
     String password = faker.regexify("[A-Za-z0-9]{10}");
     String shortPassword = faker.regexify("[A-Za-z0-9]{5}");
 
@@ -36,6 +36,7 @@ public class BaseTest {
     @BeforeEach
     void setUp() {
         driver = DriverFactory.getWebDriver();
+        driver.manage().window().maximize();
         RestAssured.baseURI = "https://stellarburgers.nomoreparties.site";
 
         // создали объекты классов страниц

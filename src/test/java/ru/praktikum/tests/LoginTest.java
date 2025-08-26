@@ -1,8 +1,8 @@
 package tests;
 
-import pageObject.ForgotPasswordPage;
-import pageObject.MainPage;
-import pageObject.RegistrationPage;
+import pageobject.ForgotPasswordPage;
+import pageobject.MainPage;
+import pageobject.RegistrationPage;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
 
-import static API.AuthAPI.registerUser;
+import static api.AuthAPI.registerUser;
 import static org.apache.http.HttpStatus.SC_OK;
 
 public class LoginTest extends BaseTest {
@@ -86,11 +86,5 @@ public class LoginTest extends BaseTest {
         Assertions.assertEquals(MainPage.ORDER_BUTTON_TEXT, actualResult);
         actualUrl = mainPage.getTextActualUrl();
         Assertions.assertEquals(MainPage.MAIN_URL, actualUrl);
-    }
-
-    public static Stream<Arguments> loginButtonProvider() {
-        return Stream.of(
-                // Реализуй тестовые данные
-                Arguments.of("header"), Arguments.of("main"), Arguments.of("register"), Arguments.of("forgot"));
     }
 }

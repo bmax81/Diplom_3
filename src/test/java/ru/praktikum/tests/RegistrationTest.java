@@ -1,14 +1,14 @@
 package tests;
 
-import pageObject.LoginPage;
-import pageObject.RegistrationPage;
+import pageobject.LoginPage;
+import pageobject.RegistrationPage;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-import static API.AuthAPI.loginUser;
+import static api.AuthAPI.loginUser;
 import static org.apache.http.HttpStatus.SC_OK;
 
 public class RegistrationTest extends BaseTest {

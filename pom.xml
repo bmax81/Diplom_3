@@ -6,7 +6,7 @@
     <groupId>org.example</groupId>
     <artifactId>Diplom_3</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Archetype - Diplom_3</name>
+    <name>Diplom_3</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -23,6 +23,7 @@
         <gson.version>2.10.1</gson.version>
         <lombok.version>1.18.30</lombok.version>
         <logback.version>1.4.14</logback.version>
+        <webdrivermanager.version>5.6.3</webdrivermanager.version>
     </properties>
 
     <dependencyManagement>
@@ -52,11 +53,20 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- WebDriver Manager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.6.3</version>
+            <version>${webdrivermanager.version}</version>
         </dependency>
+
+        <!-- Selenium -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
         <!-- RestAssured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -83,6 +93,11 @@
             <artifactId>allure-rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Logging -->
         <dependency>
@@ -99,18 +114,15 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Selenium -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
-        </dependency>
-
         <!-- Data Faker -->
         <dependency>
             <groupId>net.datafaker</groupId>
             <artifactId>datafaker</artifactId>
             <version>${faker.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
         </dependency>
     </dependencies>
 
@@ -146,18 +158,9 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                         -Dfile.encoding=UTF-8
                     </argLine>
-                    <systemProperties>
-                        <property>
-                            <name>allure.results.directory</name>
-                            <value>${project.basedir}/results/allure-results</value>
-                        </property>
-                    </systemProperties>
-                    <properties>
-                        <property>
-                            <name>junit.jupiter.execution.parallel.enabled</name>
-                            <value>true</value>
-                        </property>
-                    </properties>
+                    <systemPropertyVariables>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -175,8 +178,8 @@
                 <version>2.12.0</version>
                 <configuration>
                     <reportVersion>${allure.version}</reportVersion>
-                    <resultsDirectory>${project.basedir}/results/allure-results</resultsDirectory>
-                    <reportDirectory>${project.basedir}/results/allure-report</reportDirectory>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                    <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
                 </configuration>
             </plugin>
         </plugins>

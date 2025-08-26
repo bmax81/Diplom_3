@@ -1,4 +1,4 @@
-package API;
+package api;
 
 import data.UserData;
 import io.qameta.allure.Step;
@@ -12,8 +12,7 @@ public class AuthAPI {
     static final String TOKEN_USER_API = "/api/auth/token";
     static final String USER_API = "/api/auth/user";
 
-    // метод для шага "Создание пользователя":
-    @Step("Send POST request to /api/auth/register")
+    @Step("Регистрация пользователя: POST /api/auth/register")
     public static Response registerUser(UserData userData) {
         Response response = given()
                 .header("Content-type", "application/json")
@@ -24,8 +23,7 @@ public class AuthAPI {
         return response;
     }
 
-    // метод для шага "Удаление пользователя":
-    @Step("Send POST request to /api/auth/user")
+    @Step("Удаление пользователя: DELETE /api/auth/user")
     public static Response deleteUser(String accessToken) {
         Response response = given()
                 .header("Authorization", accessToken)
@@ -34,8 +32,7 @@ public class AuthAPI {
         return response;
     }
 
-    // метод для шага "Авторизация пользователя":
-    @Step("Send POST request to /api/auth/token")
+    @Step("Авторизация пользователя: POST /api/auth/login")
     public static Response loginUser(UserData userData) {
         Response response = given()
                 .header("Content-type", "application/json")
@@ -46,8 +43,7 @@ public class AuthAPI {
         return response;
     }
 
-    // метод для шага "Получение токена":
-    @Step("Send POST request to /api/auth/login")
+    @Step("Получение токена: POST /api/auth/token")
     public static Response tokenUser(UserData userData) {
         Response response = given()
                 .header("Content-type", "application/json")

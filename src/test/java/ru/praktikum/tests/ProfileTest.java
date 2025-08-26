@@ -1,15 +1,15 @@
 package tests;
 
-import pageObject.LoginPage;
-import pageObject.MainPage;
-import pageObject.ProfilePage;
+import pageobject.LoginPage;
+import pageobject.MainPage;
+import pageobject.ProfilePage;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static API.AuthAPI.registerUser;
+import static api.AuthAPI.registerUser;
 import static org.apache.http.HttpStatus.SC_OK;
 
 public class ProfileTest extends BaseTest {

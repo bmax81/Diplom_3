@@ -1,4 +1,4 @@
-package pageObject;
+package pageobject;
 
 import data.UserData;
 import org.openqa.selenium.By;
